@@ -121,12 +121,26 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        //produtosdao.venderProduto(Integer.parseInt(id));
+        String idTexto = id_produto_venda.getText().trim();
+
+        // Verifica se o campo está vazio
+        if (idTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O campo de ID do produto deve ser preenchido.");
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(idTexto); // Tenta converter o texto para inteiro
+            ProdutosDAO dao = new ProdutosDAO();
+            dao.venderProduto(id); // Chama o método de venda
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "O ID do produto deve ser um número válido.");
+        }
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        //vendasVIEW vendas = new vendasVIEW(); 
-        //vendas.setVisible(true);
+        vendasVIEW vendas = new vendasVIEW(); 
+        vendas.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -154,6 +168,7 @@ public class listagemVIEW extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Erro ao carregar a tabela: " + e.getMessage());
     }
 }
+     
 
     
     public static void main(String args[]) {
@@ -163,7 +178,7 @@ public class listagemVIEW extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVendas;
     private javax.swing.JButton btnVender;
